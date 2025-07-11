@@ -1,103 +1,212 @@
-import Image from "next/image";
+'use client';
+
+import { useState, useEffect } from 'react';
+import ContactModal from './components/ContactModal';
+import Navbar from './components/Navbar';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          (entry.target as HTMLElement).classList.add('show');
+        }
+      });
+    });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      (el as HTMLElement).classList.remove('show');
+      observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className="min-h-screen gradient-bg text-white pt-16">
+      <Navbar onOpenContact={openModal} />
+      {/* Hero */}
+      <section className="py-20 px-6 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden  max-w-7xl mx-auto">
+        <div className="lg:w-1/2 fade-in">
+          <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
+            Transform Your Business with <span className="text-gradient">AVA</span>
+          </h1>
+          <p className="text-lg text-gray-300 mb-6">
+            Automate 90% of customer conversations across WhatsApp, Instagram, and your Website.
+            From missed leads to 24/7 smart replies, from repetitive queries to instant bookings — AVA does it all.
+            No monthly fees. Just one powerful multilingual assistant for life.
+          </p>
+          <button
+            onClick={openModal}
+            className="pulse-glow px-6 py-3 rounded-full shadow-lg hover:scale-105 transition cursor-pointer font-bold text-2xl"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+            Launch Your AI Chatbot
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        <div className="lg:w-1/2 w-full fade-in">
+          <div className="relative rounded-2xl border-4 border-cyan-400 shadow-2xl overflow-hidden ">
+            <video
+              src="/Ai video.mp4"
+              autoPlay
+              muted
+              loop
+              className="w-full h-auto object-cover"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="py-20 px-6 md:px-16 gradient-bg fade-in">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gradient">
+          Why AVA – Multilingual AI That Works
+        </h2>
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+          {[
+            {
+              title: "🧠 Smart from Day One",
+              desc: "Trained on your business FAQs and workflows, AVA handles 80–90% of queries—instantly.",
+            },
+            {
+              title: "🗣️ Voice + Multilingual",
+              desc: "Speaks English, Arabic, Hindi, Tagalog & more. Includes voice-to-text for low-literacy users.",
+            },
+            {
+              title: "🌐 One Assistant, Every Channel",
+              desc: "Website, WhatsApp, Instagram—AVA integrates seamlessly so you never miss a lead.",
+            },
+            {
+              title: "🛒 Not Just Chat, It Converts",
+              desc: "Books appointments, collects leads, takes payments—all in one smooth conversation.",
+            },
+            {
+              title: "🔧 No Code Setup",
+              desc: "Easy drag-and-drop dashboard. Customize everything without a single line of code.",
+            },
+            {
+              title: "🔒 Private, Secure, One-Time Fee",
+              desc: "Includes white-label, SLA guarantee & full data compliance. No hidden charges.",
+            },
+          ].map((feature, index) => (
+            <div
+              key={index}
+              className="glass-effect p-6 hover:scale-[1.02] transition"
+            >
+              <h3 className="text-xl font-semibold mb-3">{feature.title}</h3>
+              <p className="text-gray-300 text-sm">{feature.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="py-20 px-6 md:px-16 gradient-bg fade-in">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-gradient">
+          Flexible Pricing for Every Business
+        </h2>
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            {
+              title: "🚀 AI Starter Pack",
+              price: "799 USD/month",
+              original: "2,799 USD",
+              tag: "Best for: Startups",
+              features: [
+                "Website chatbot",
+                "Basic FAQ/contact automation",
+                "Single channel",
+                "1 update/month",
+                "48h setup",
+              ],
+            },
+            {
+              title: "📈 AI Business Pro",
+              price: "1,999 USD/month",
+              original: "4,799 USD",
+              tag: "Best for: Growing businesses",
+              features: [
+                "Chatbot + WhatsApp",
+                "Dynamic lead forms",
+                "CRM integration",
+                "Analytics dashboard",
+                "Priority support",
+              ],
+            },
+            {
+              title: "🤖 AI Customer Care+",
+              price: "2,399 USD/month",
+              original: "5,999 USD",
+              tag: "Best for: E-commerce, healthcare",
+              features: [
+                "AI ticketing & triage",
+                "Helpdesk integrations",
+                "Human handoff",
+                "Monthly reports",
+              ],
+            },
+            {
+              title: "🚀 AI Full Growth Suite",
+              price: "4,399 USD/month",
+              original: "9,999 USD",
+              tag: "Best for: Enterprises",
+              features: [
+                "Omnichannel AI",
+                "ERP/API + voice",
+                "3 upgrades/month",
+                "Strategy sessions",
+              ],
+            },
+          ].map((plan, index) => (
+            <div
+              key={index}
+              className="glass-effect rounded-2xl p-6 shadow-xl flex flex-col justify-between hover:scale-105 transition"
+            >
+              <div>
+                <h3 className="text-xl font-bold mb-2">{plan.title}</h3>
+                <div className="text-cyan-300 text-lg mb-3">
+                  {plan.price} <span className="line-through text-sm text-gray-400">{plan.original}</span>
+                </div>
+                <ul className="text-gray-300 text-sm space-y-2 mb-4">
+                  {plan.features.map((f, i) => (
+                    <li key={i}>✔ {f}</li>
+                  ))}
+                </ul>
+              </div>
+              <button
+                onClick={openModal}
+                className="bg-cyan-500 hover:bg-cyan-400 text-white mt-auto px-4 py-2 rounded-full transition cursor-pointer"
+              >
+                Get Started
+              </button>
+              <span className="text-xs text-gray-400 mt-2">{plan.tag}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* VIP Enterprise */}
+        <div className="mt-16 glass-effect p-8 text-center shadow-lg">
+          <h3 className="text-2xl font-bold mb-4">✨ VIP Enterprise AI</h3>
+          <p className="text-gray-300 mb-6">Custom AI for complex operations & full compliance</p>
+          <ul className="text-gray-300 text-sm mb-6 space-y-2">
+            <li>✔ Custom AI (call center, APIs, multilingual)</li>
+            <li>✔ Dedicated project manager + SLA</li>
+            <li>✔ White-label, privacy & compliance</li>
+          </ul>
+          <button
+            onClick={openModal}
+            className="pulse-glow px-6 py-3 rounded-full hover:scale-105 transition cursor-pointer"
+          >
+            Book a Consultation
+          </button>
+        </div>
+      </section>
+
+      <ContactModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
   );
 }
