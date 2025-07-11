@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import ContactModal from './components/ContactModal';
 import Navbar from './components/Navbar';
+import HeroForm from './components/HeroForm';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +31,8 @@ export default function Home() {
     <div className="min-h-screen gradient-bg text-white pt-16">
       <Navbar onOpenContact={openModal} />
       {/* Hero */}
-      <section className="py-20 px-6 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden  max-w-7xl mx-auto">
+      {/* Hero Section with Form */}
+      <section className="py-20 px-6 md:px-16 flex flex-col lg:flex-row items-center justify-between gap-10 overflow-hidden max-w-7xl mx-auto">
         <div className="lg:w-1/2 fade-in">
           <h1 className="text-4xl md:text-5xl font-extrabold leading-tight mb-6">
             Transform Your Business with <span className="text-gradient">AVA</span>
@@ -49,15 +51,37 @@ export default function Home() {
         </div>
 
         <div className="lg:w-1/2 w-full fade-in">
-          <div className="relative rounded-2xl border-4 border-cyan-400 shadow-2xl overflow-hidden ">
-            <video
-              src="/Ai video.mp4"
-              autoPlay
-              muted
-              loop
-              className="w-full h-auto object-cover"
-            />
-          </div>
+          <HeroForm />
+        </div>
+      </section>
+
+      {/* Video Section */}
+      <section className="py-20 px-6 md:px-16 max-w-7xl mx-auto fade-in">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 text-gradient">
+            See AVA in Action
+          </h2>
+          <p className="text-lg text-gray-300 max-w-3xl mx-auto">
+            Watch how AVA transforms customer interactions into seamless, automated conversations
+            across all your business channels.
+          </p>
+        </div>
+
+        <div className="relative rounded-2xl border-4 border-cyan-400 shadow-2xl overflow-hidden max-w-4xl mx-auto">
+          <video
+            src="/Ai video.mp4"
+            autoPlay
+            muted
+            loop
+            className="w-full h-auto object-cover"
+          />
+          {/* <div className="absolute inset-0 flex items-center justify-center">
+            <div className="bg-black/30 rounded-full p-4 pulse-glow">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-16 w-16 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </div> */}
         </div>
       </section>
 
