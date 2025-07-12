@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import ContactModal from './components/ContactModal';
 import Navbar from './components/Navbar';
 import HeroForm from './components/HeroForm';
+import Testimonials from './components/Testimonials';
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -229,6 +230,8 @@ export default function Home() {
           </button>
         </div>
       </section>
+
+      <Testimonials />
 
       <ContactModal isOpen={isModalOpen} onClose={closeModal} />
     </div>
