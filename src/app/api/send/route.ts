@@ -5,14 +5,14 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: Request) {
-    try {
-        const { name, email, phone, message } = await request.json();
+  try {
+    const { name, email, phone, message } = await request.json();
 
-        const data = await resend.emails.send({
-            from: 'AVA AI Chatbot <testing@resend.dev>',
-            to: 'maverick.aiproject@gmail.com',
-            subject: `New Inquiry from ${name} - AVA AI Chatbot`,
-            html: `
+    const data = await resend.emails.send({
+      from: 'AVA AI Chatbot <testing@resend.dev>',
+      to: 'maverick.aiproject@gmail.com',
+      subject: `New Inquiry from ${name} - AVA AI Chatbot`,
+      html: `
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px;">
           <h1 style="color: #2563eb; text-align: center;">New Customer Inquiry</h1>
           
@@ -29,11 +29,11 @@ export async function POST(request: Request) {
           </div>
         </div>
       `,
-        });
+    });
 
-        return NextResponse.json(data);
-    } catch (error: any) {
-        console.error('Error sending email:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
-    }
+    return NextResponse.json(data);
+  } catch (error) {
+    console.error('Error sending email:', error);
+    return NextResponse.json({ error: error }, { status: 500 });
+  }
 }

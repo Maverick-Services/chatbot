@@ -50,11 +50,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       } else {
         throw new Error(result.error || 'Failed to send message');
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error('Error sending message:', error);
       setSubmitStatus({
         success: false,
-        message: error.message || 'An error occurred. Please try again.'
+        message: 'An error occurred. Please try again.'
       });
     } finally {
       setIsSubmitting(false);

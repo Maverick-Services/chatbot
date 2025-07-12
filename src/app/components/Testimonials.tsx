@@ -67,7 +67,7 @@ function Testimonials() {
                                     <p className="text-gray-400 text-xs mt-1">{testimonial.country}</p>
                                 </div>
                             </div>
-                            <p className="text-gray-300 italic">"{testimonial.quote}"</p>
+                            <p className="text-gray-300 italic">&quot;{testimonial.quote}&quot;</p>
                         </div>
                     ))}
                 </div>
