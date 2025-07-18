@@ -1,7 +1,7 @@
-import type { Metadata } from 'next';
 import './globals.css';
+import Script from 'next/script';
 
-export const metadata: Metadata = {
+export const metadata = {
   title: 'Ava AI | Powered By MatchBest',
   description: 'Transform your business with AVA – Your AI Chatbot Assistant. Automate 90% of customer conversations across WhatsApp, Instagram, and your Website.',
   keywords: 'AI chatbot, customer service automation, WhatsApp bot, Instagram bot, multilingual AI, business automation',
@@ -29,6 +29,20 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-screen flex flex-col gradient-bg text-white overflow-x-hidden">
+        {/* Google Tag Manager Script */}
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17353719974"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17353719974');
+          `}
+        </Script>
+
         {children}
       </body>
     </html>
